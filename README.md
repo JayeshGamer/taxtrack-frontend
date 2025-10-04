@@ -1,204 +1,200 @@
-# TaxTrack — Repository Overview
+# 🏛️ TaxTrack - Transparent Government Audits
 
-This repository contains the frontend for TaxTrack and some helper scripts at the repository root.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Solidity](https://img.shields.io/badge/Solidity-%5E0.8.20-blue)](https://soliditylang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.0-black)](https://nextjs.org/)
+[![Hardhat](https://img.shields.io/badge/Hardhat-2.19-yellow)](https://hardhat.org/)
 
-This README documents:
-- What the project is
-- How to set it up locally (Windows-focused commands)
-- Available scripts and how to run them
-- How to resolve `file > 100MB` issues (two safe approaches: Git LFS or removing large blobs from history using the helper scripts)
-- Project structure and where to modify the main visual styles (background/gradients)
-- Contributing, testing, and troubleshooting
+## 📘 Overview
 
----
+**TaxTrack** is a decentralized civic-tech application built on Ethereum and Polygon testnets that provides an immutable, transparent public audit system for tax collections and government expenditure tracking. It empowers citizens through DAO-based voting and transparent IPFS-backed documentation.
 
-## Quick summary
+⚠️ **TESTNET ONLY** - No real money involved. This is an educational and proof-of-concept project.
 
-- Frontend app lives in `taxtrack-frontend/` (Next.js + TypeScript + Tailwind).
-- Helpful scripts at repo root: `list_large_blobs.ps1`, `remove_large_with_bfg.bat`, `remove_large_with_filterrepo.bat` (use these carefully — they rewrite history).
-- If you have a file too large to push (>100MB), preferred options are:
-  - Use Git LFS for large assets you need to keep
-  - Remove the large file(s) and their history using the included scripts and then force-push (requires team coordination)
+## ✨ Key Features
 
----
+- 🗳️ **DAO-Based Governance** - Citizens vote on budget proposals and expenditures
+- 📊 **Transparent Auditing** - All transactions recorded on-chain
+- 📁 **IPFS Documentation** - Immutable storage for proposals and receipts
+- 🔐 **Trustless Architecture** - No central authority required
+- 🎫 **ERC-20 Voting Tokens** - Weighted voting rights for citizens
+- 📈 **Real-time Dashboard** - Live monitoring of government funds and proposals
+- 🔔 **Event Logging** - Complete audit trail of all actions
 
-## Project: taxtrack-frontend
+## 🛠️ Tech Stack
 
-A modern frontend built with Next.js, TypeScript and Tailwind CSS.
+| Layer | Technology |
+|-------|-----------|
+| **Blockchain** | Ethereum (Sepolia) + Polygon (Mumbai) Testnets |
+| **Smart Contracts** | Solidity 0.8.20 + Hardhat + OpenZeppelin |
+| **Token Standard** | ERC-20 (for DAO voting rights) |
+| **Frontend** | Next.js 14 + React + Tailwind CSS |
+| **UI Components** | 21st.dev, ReactBits, Magic UI |
+| **Storage** | IPFS (Web3.Storage) |
+| **Backend** | Node.js + Express + SQLite (optional caching) |
+| **Web3 Library** | Ethers.js v6 + Wagmi |
+| **Testing** | Hardhat + Chai + Jest |
+| **Monitoring** | Tenderly + Etherscan APIs + Sentry |
 
-Tech stack (from `taxtrack-frontend/package.json`):
-- Next.js 14
-- React 18
-- TypeScript
-- Tailwind CSS
-- Framer Motion, Recharts, Three.js, wagmi, viem, etc.
+## 📁 Project Structure
 
-Important scripts (run inside `taxtrack-frontend`):
+```
+taxtrack-dapp/
+├── contracts/          # Solidity smart contracts
+├── frontend/          # Next.js frontend application
+├── backend/           # Optional API server for caching
+├── scripts/           # Deployment and utility scripts
+├── test/             # Smart contract tests
+├── docs/             # Comprehensive documentation
+│   ├── architecture/ # System architecture docs
+│   ├── requirements/ # Functional & non-functional requirements
+│   ├── diagrams/     # UML, DFD, and system diagrams
+│   ├── testing/      # QA and testing documentation
+│   ├── deployment/   # Deployment guides
+│   └── governance/   # DAO governance documentation
+└── monitoring/       # Monitoring and logging configs
+```
 
-```cmd
-cd taxtrack-frontend
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js >= 18.0.0
+- npm or yarn
+- MetaMask or compatible Web3 wallet
+- Alchemy or Infura API key
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/taxtrack-dapp.git
+cd taxtrack-dapp
+
+# Install dependencies
 npm install
-npm run dev       :: development server (next dev)
-npm run build     :: production build
-npm start         :: start built app
-npm run lint      :: run linter (next lint)
+
+# Setup environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Compile smart contracts
+npm run compile
+
+# Run tests
+npm run test
+
+# Deploy to testnet
+npm run deploy:sepolia
+
+# Start frontend
+cd frontend
+npm run dev
 ```
 
-Note: On Windows, run these commands in `cmd.exe` or PowerShell. If using WSL, adjust accordingly.
+## 📖 Documentation
+
+Comprehensive documentation is available in the `/docs` directory:
+
+- [Project Formulation](./docs/01-project-formulation.md)
+- [Functional Requirements](./docs/requirements/02-functional-requirements.md)
+- [Non-Functional Requirements](./docs/requirements/03-non-functional-requirements.md)
+- [System Architecture](./docs/architecture/04-high-level-architecture.md)
+- [Product Requirements Document](./docs/12-product-requirements.md)
+- [Testing Plan](./docs/testing/15-qa-testing-plan.md)
+- [Deployment Guide](./docs/deployment/16-deployment-ci-cd.md)
+
+## 👥 User Roles
+
+1. **Citizens** - Vote on proposals, view audits, submit concerns
+2. **Government Admins** - Create funding proposals, upload documentation
+3. **Auditors** - Review proposals, verify expenditures, flag issues
+4. **DAO Token Holders** - Participate in governance decisions
+
+## 🔄 Workflow
+
+```mermaid
+graph LR
+    A[Proposal Created] --> B[Upload to IPFS]
+    B --> C[Store Hash On-Chain]
+    C --> D[Citizens Vote]
+    D --> E{Quorum Reached?}
+    E -->|Yes| F[Proposal Approved]
+    E -->|No| G[Proposal Rejected]
+    F --> H[Funds Released]
+    H --> I[Event Logged]
+    I --> J[Dashboard Updated]
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm run test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run gas reporter
+npm run test:gas
+
+# Run specific test file
+npm run test test/DAOContract.test.js
+```
+
+## 🌐 Deployment
+
+The project supports deployment to multiple testnets:
+
+```bash
+# Deploy to Sepolia
+npm run deploy:sepolia
+
+# Deploy to Polygon Mumbai
+npm run deploy:mumbai
+
+# Verify contracts
+npm run verify:sepolia
+```
+
+## 🔒 Security
+
+- ✅ No real funds - testnet only
+- ✅ Input sanitization on all user inputs
+- ✅ Reentrancy guards on contract functions
+- ✅ Access control with OpenZeppelin
+- ✅ Rate limiting on proposal creation
+- ✅ Multi-signature requirements for critical actions
+
+## 📊 Monitoring & Analytics
+
+- **Tenderly** - Real-time contract monitoring
+- **Etherscan APIs** - Transaction tracking
+- **Sentry** - Frontend error tracking
+- **Custom Dashboard** - Proposal metrics and voting statistics
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting PRs.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- OpenZeppelin for secure contract libraries
+- Hardhat for development framework
+- IPFS for decentralized storage
+- The Ethereum and Polygon communities
+
+## 📞 Contact
+
+- **Project Lead**: [Your Name]
+- **Email**: contact@taxtrack.example
+- **Twitter**: [@TaxTrackDAO](https://twitter.com/taxtrackdao)
+- **Discord**: [Join our community](https://discord.gg/taxtrack)
 
 ---
 
-## Add a subtle off-white main background + gradient (design notes)
-
-You mentioned the main landing page looks too dull and requested Off White `#FAF9F6` with subtle gradients for the main background only. The global CSS lives at `taxtrack-frontend/src/app/globals.css`. A non-invasive approach:
-
-1. Keep the color family the same (off-white) and add a very subtle linear- or radial-gradient to the `body` or main container so sections and components keep their existing backgrounds.
-
-Example CSS (copy into `globals.css` or `:root` where you define base styles):
-
-```css
-/* Add a subtle background with the requested off-white */
-:root {
-  --off-white: #FAF9F6;
-}
-
-html, body {
-  background: radial-gradient(1200px 600px at 10% 10%, rgba(250,249,246,0.6), transparent 20%),
-              radial-gradient(1000px 500px at 90% 90%, rgba(250,249,246,0.5), transparent 20%),
-              var(--off-white);
-  /* Keep text-color and other tokens unchanged */
-}
-
-/* If you want a lighter subtle sheen on top of the off-white without changing component colors */
-.main-bg-overlay {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.01));
-}
-```
-
-These rules preserve the off-white base (#FAF9F6) but add faint gradients that make the page feel less flat.
-
-If you'd like, I can make this change directly in `taxtrack-frontend/src/app/globals.css` and run a quick dev server check — confirm if you want me to apply it.
-
----
-
-## Resolving "file is more than 100 MB" when pushing
-
-If `git push` fails because a file in your history exceeds GitHub's 100 MB limit, you have two safe options.
-
-Option A — Use Git LFS (recommended for large binary assets you want to keep):
-
-1. Install Git LFS (Windows):
-
-```cmd
-choco install git-lfs    :: if you use Chocolatey OR
-winget install --id Git.GitLFS -e --source winget
-```
-
-or manually from https://git-lfs.com/
-
-2. Enable LFS in your repo and track file types you want to store in LFS (example for images):
-
-```cmd
-cd D:\Web3Hackathon
-git lfs install
-git lfs track "*.psd" "*.png" "*.zip" "*.mov"
-git add .gitattributes
-```
-
-3. Replace the large file by removing it from the index and re-adding (or commit new large files that are LFS tracked):
-
-```cmd
-git rm --cached path\to\large.file
-git add path\to\large.file  :: now tracked by LFS
-git commit -m "Move large assets to Git LFS"
-git push origin main
-```
-
-Notes:
-- LFS stores pointers in Git while keeping the actual large objects in LFS storage.
-- If the big file is already in history, LFS won't retroactively rewrite old commits; you may still need to remove the historic blobs (see Option B).
-
-Option B — Remove the large blob(s) from history (rewrites history; all collaborators must re-clone):
-
-This repo already includes helper scripts at the root. Summary of recommended steps (using the filter-repo script which is modern and fast):
-
-1. Create a backup of your repo (clone or copy). Never run history-rewriting commands on the only copy.
-
-```cmd
-cd D:\
-mkdir repo-backups
-cd D:\Web3Hackathon
-git clone --mirror . ..\repo-backups\taxtrack-frontend-backup.git
-```
-
-2. Use the `remove_large_with_filterrepo.bat` script (it wraps `git filter-repo`). On Windows you may need Python and `git-filter-repo` available. The script should contain the common arguments to remove blobs above a threshold.
-
-Run it from the repo root (in `cmd.exe`):
-
-```cmd
-cd D:\Web3Hackathon
-remove_large_with_filterrepo.bat
-```
-
-If the script needs `git-filter-repo` installed, you can install it with pip:
-
-```cmd
-python -m pip install git-filter-repo
-```
-
-3. Verify the repo locally and force-push the cleaned history to the remote (this will rewrite remote history):
-
-```cmd
-git remote add origin-clean <your-remote-url>  :: OPTIONAL: prefer pushing to a new remote first
-# or to overwrite origin (team coordination required):
-git push --force origin main
-```
-
-4. Notify collaborators. Everyone must re-clone or run recovery steps.
-
-Alternate: `BFG Repo Cleaner` (script `remove_large_with_bfg.bat`) is a widely used wrapper around BFG. It's simpler but also rewrites history.
-
----
-
-## Recommended `.gitignore`
-
-A `.gitignore` has been added to the repo root to help avoid committing build artefacts and node modules (see `.gitignore` in repo root). It includes common ignores for Node/Next/Tailwind/IDE files. If you want specific additions (e.g., certain large files), tell me and I can extend it.
-
----
-
-## Repo structure (top-level)
-
-- `taxtrack-frontend/` — Next.js app (source lives under `taxtrack-frontend/src/`)
-- `list_large_blobs.ps1` — PowerShell helper to list large blobs in your Git history
-- `remove_large_with_bfg.bat` — Batch wrapper to run BFG Repo Cleaner
-- `remove_large_with_filterrepo.bat` — Batch wrapper to run git-filter-repo
-- `README_CLEANUP.md` — existing cleanup notes
-
----
-
-## Contributing & Workflow
-
-- Use feature branches: `feature/describe-thing` or `fix/short-description`.
-- Rebase or merge strategy is up to the team; if you rewrite history (filter-repo/BFG) coordinate with the team.
-
-Pull request checklist:
-- Lint passes: `npm run lint` inside `taxtrack-frontend`
-- No accidentally committed secrets or large files
-- Update the changelog if applicable
-
----
-
-## Troubleshooting
-
-- If you still see `error: GH001: Large files detected` after moving to LFS, make sure the large objects are removed from past commits (see Option B).
-- If `git filter-repo` fails, ensure you run it from a mirrored repo clone and that Python + git-filter-repo are installed.
-
----
-
-## Next steps I can take for you
-
-- Apply the subtle off-white gradient to `taxtrack-frontend/src/app/globals.css` and run the dev server to confirm how it looks.
-- Help remove or migrate large files to Git LFS and run the included scripts for you (I will only give commands; I cannot run pushes from here).
-
-If you want me to apply the CSS change now, tell me and I will add it and validate locally (dev server check). If you'd like the full README content revised or printed here, tell me — otherwise the file is in the repo root at `D:\Web3Hackathon\README.md`.
-
+Built with ❤️ for transparent governance
